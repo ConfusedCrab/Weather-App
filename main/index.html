@@ -10,47 +10,56 @@
   <!-- FontAwesome for icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="MobileStyle.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tabStyle.css">
+  <link rel="stylesheet" href="MobileStyle.css">
 
+  <style></style>
 </head>
 
 <body>
-<section class="mobile">
-   <div class="mobile-container">
+
+  <header class="app-header">
+    <h1>WeatherNow</h1>
+    <p>Get real-time weather updates worldwide</p>
+  </header>
+
+ 
+    <section class="mobile">
+      <div class="mobile-container">
         <div class="mobile-search-box">
-            <input type="text" placeholder="Enter city name" id="city-input">
-            <button id="search-btn"><i class="fas fa-search"></i></button>
+          <input type="text" placeholder="Enter city name" id="city-input">
+          <button id="search-btn"><i class="fas fa-search"></i></button>
         </div>
-        
+
         <div class="mobile-weather-box">
-            <div class="mobile-weather-details">
-                <img src="../asset/images/6.png" alt="weather icon" id="weather-icon">
-                <h2 id="temperature">--°C</h2>
-                <h3 id="city"></h3>
-                <p id="description"></p>
+          <div class="mobile-weather-details">
+            <img src="../asset/images/6.png" alt="weather icon" id="weather-icon">
+            <h2 id="temperature">--°C</h2>
+            <h3 id="city"></h3>
+            <p id="description"></p>
+          </div>
+
+          <div class="weather-info">
+            <div class="mobile-info-item">
+              <i class="fas fa-wind"></i>
+              <span id="wind">Wind: -- km/h</span>
             </div>
-            
-            <div class="weather-info">
-                <div class="mobile-info-item">
-                    <i class="fas fa-wind"></i>
-                    <span id="wind">Wind: -- km/h</span>
-                </div>
-                <div class="mobile-info-item">
-                    <i class="fas fa-tint"></i>
-                    <span id="humidity">Humidity: --%</span>
-                </div>
-                <div class="mobile-info-item">
-                    <i class="fas fa-compress-arrows-alt"></i>
-                    <span id="pressure">Pressure: -- hPa</span>
-                </div>
+            <div class="mobile-info-item">
+              <i class="fas fa-tint"></i>
+              <span id="humidity">Humidity: --%</span>
             </div>
+            <div class="mobile-info-item">
+              <i class="fas fa-compress-arrows-alt"></i>
+              <span id="pressure">Pressure: -- hPa</span>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-</section>
+    </section>
 
-  <section class="tab">
+    <section class="tab">
       <div class="tab-search">
         <div class="input-group">
           <label class="input-label" for="city">Enter city name</label>
@@ -66,7 +75,7 @@
         </div>
         <!--  Local time  -->
         <div aria-live="polite" class="local-time">
-          Local time: Tue, 21:45
+          location time: Tue, 21:45
         </div>
       </div>
 
@@ -77,17 +86,16 @@
           <div class="city_name"></div>
 
           <!--local location time -->
-           <div class="time">
-    </div>
+          <div class="time">
+          </div>
         </div>
 
         <div class="temp-row">
           <div class="temp">
             --°
           </div>
-          <img alt="Weather icon showing partly cloudy with sun"
-            src="../asset/images/6.png" width="24"
-            height="24"  class="weather-icon-tab"/>
+          <img alt="Weather icon showing partly cloudy with sun" src="../asset/images/6.png" width="24" height="24"
+            class="weather-icon-tab" />
         </div>
 
         <!--  Weather description -->
@@ -137,7 +145,7 @@
             <span>Sunrise</span>
             <span>--AM</span>
           </div>
-          
+
           <!-- Ground leavel -->
           <div>
             <span>Sunset</span>
@@ -145,7 +153,25 @@
           </div>
         </div>
       </section>
-  </section>
+    </section>
+
+  <footer class="app-footer">
+  <div class="footer-content">
+   <p>&copy; 2025 <strong>WeatherNow</strong>. Crafted with precision by Garvit. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <span>|</span>
+      <a href="#">Terms</a>
+      <span>|</span>
+      <a href="#">Contact</a>
+      <span>|</span>
+      <a href="#">GitHub</a>
+      <span>|</span>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
   <script src="script.js"></script>
   <script src="countryCode.js"></script>
 </body>

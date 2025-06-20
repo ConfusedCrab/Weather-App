@@ -1,11 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-
 .mobile-container {
     background: transparent;
     padding: 2rem;
@@ -100,29 +92,7 @@
     color: #666;
 } 
 
-/* Base: show mobile by default, hide tab */
-.mobile {
-  display: block;
-}
-.tab {
-  display: none;
-}
-
- /* Tablet/Desktop: show tab, hide mobile */
-@media screen and (min-width: 768px) {
-  .mobile {
-    display: none;
-  }
-  .tab {
-    display: block;
-  }
-} 
-
-.mobile, .tab {
-  transition: opacity 0.3s ease;
-}
-
-
+/* responsiveness */
 @media (max-width: 350px) {
     .mobile-container {
         padding: 1rem;
