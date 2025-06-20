@@ -23,8 +23,25 @@ const weatherCard = document.querySelector('.weather-card');
 const tabDetails = document.querySelectorAll('.tab-weather-details div span:last-child')
 
 
+
+// loading screen
+// Show loading overlay
+function showLoading() {
+    const overlay = document.createElement('div');
+    overlay.className = 'loading-overlay';
+    overlay.innerHTML = '<div class="loading-spinner"></div>';
+    document.body.appendChild(overlay);
+}
+// Hide loading overlay
+function hideLoading() {
+    const overlay = document.querySelector('.loading-overlay');
+    if (overlay) overlay.remove();
+}
+
+
 // it Fetch Weather Data 
 async function getWeatherData(cityName) {
+    showLoading(); // Show loading before fetch
     try {
         const response = await fetch(
             `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&appid=${apiKey}`
@@ -35,10 +52,12 @@ async function getWeatherData(cityName) {
         }
 
         const data = await response.json();
-        console.log('Fetched Weather Data:', data); // 👈 This logs the full data object
+        console.log('Fetched Weather Data:', data); //  This logs the full data object
         updateWeatherUI(data);
     } catch (error) {
         alert(error.message);
+    } finally {
+        hideLoading(); // 👉 Always hide loading, success or fail
     }
 }
 // dummy data
@@ -59,7 +78,8 @@ function updateWeatherUI(data) {
         // weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
         weatherIconMobile.src = `../asset/icons/${iconCode}@2x.png`;
         temperatureMobile.textContent = `${Math.round(data.main.temp)}°C`;
-        cityMobile.textContent = data.name;
+        const countryName = countryMap[data.sys.country] || data.sys.country;
+        cityMobile.textContent = `${data.name}, ${countryName}`;
         descriptionMobile.textContent = data.weather[0].description;
         windMobile.textContent = `Wind: ${Math.round(data.wind.speed * 3.6)} km/h`;
         humidityMobile.textContent = `Humidity: ${data.main.humidity}%`;
@@ -69,7 +89,8 @@ function updateWeatherUI(data) {
 
     //  Tab Update 
     if (weatherCard) {
-        cityTab.textContent = data.name;
+        const countryName = countryMap[data.sys.country] || data.sys.country;
+        cityTab.textContent = `${data.name}, ${countryName}`;
         tempTab.textContent = `+${Math.round((data.main.temp))}°C`;
         weatherIconTab.src = `../asset/icons/${iconCode}@2x.png`;
         feelsLikeTab.textContent = `${data.weather[0].description},feels like +${Math.round(data.main.feels_like)}°C`;
