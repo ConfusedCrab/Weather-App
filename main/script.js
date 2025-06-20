@@ -211,3 +211,31 @@ setTimeout(() => {
     updateLocalTime();
     setInterval(updateLocalTime, 60000);
 }, (60 - new Date().getSeconds()) * 1000);
+
+
+// for contact modal 
+const contactModal = document.getElementById('contactModal');
+const closeBtn = document.querySelector('.close-btn');
+
+// Show modal
+function openContactModal() {
+    contactModal.style.display = 'flex';
+}
+
+// Close modal
+closeBtn.addEventListener('click', () => {
+    contactModal.style.display = 'none';
+});
+
+// Clicking outside the modal closes it
+window.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+        contactModal.style.display = 'none';
+    }
+});
+
+document.getElementById('contactBtn')?.addEventListener('click', openContactModal);
+document.getElementById('footerContactBtn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openContactModal();
+});
