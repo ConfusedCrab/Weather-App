@@ -40,9 +40,15 @@ async function getWeatherData(cityName) {
     } catch (error) {
         alert(error.message);
     }
-
 }
-
+// dummy data
+//  const dummyData = {
+//         weather: [{ icon: '01d', description: 'clear sky' }],
+//         main: { temp: 25, humidity: 40, pressure: 1012 },
+//         wind: { speed: 3 },
+//         name: 'Mock City'
+//     };
+//     updateWeatherUI(dummyData);
 
 // it displays all the data ,  Update both UIs
 function updateWeatherUI(data) {
@@ -75,8 +81,8 @@ function updateWeatherUI(data) {
             visibility,
             humidity,
             pressure,
-            seaLevel,
-            groundLevel
+            sunrise,
+            sunset
         ] = tabDetails;
 
         windSpeed.textContent = `${data.wind.speed} m/s`;
@@ -85,9 +91,40 @@ function updateWeatherUI(data) {
         visibility.textContent = `${data.visibility} m`;
         humidity.textContent = `${data.main.humidity}%`;
         pressure.textContent = `${data.main.pressure} hPa`;
-        seaLevel.textContent = data.main.sea_level ? `${data.main.sea_level} ` : '—';
-        groundLevel.textContent = data.main.grnd_level ? `${data.main.grnd_level} ` : '—';
 
+
+        // for sun set ans sun rise 
+        const formatTime = (unixTime, timezoneOffset) => {
+            const localUnix = unixTime + timezoneOffset; // Adjust UTC by city's offset
+            const localDate = new Date(localUnix * 1000); // Convert to JS Date
+            const hours = localDate.getUTCHours();
+            const minutes = localDate.getUTCMinutes();
+            const formattedHours = hours % 12 || 12;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+        };
+
+        sunrise.textContent = formatTime(data.sys.sunrise, data.timezone);
+        sunset.textContent = formatTime(data.sys.sunset, data.timezone);
+
+        //for local location time   
+        function updateCityLocalTime(timezoneOffsetInSeconds) {
+            const nowUTC = new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60000); // Convert current time to UTC
+            const cityTime = new Date(nowUTC.getTime() + timezoneOffsetInSeconds * 1000);
+
+            const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            const day = days[cityTime.getDay()];
+            const hours = cityTime.getHours().toString().padStart(2, '0');
+            const minutes = cityTime.getMinutes().toString().padStart(2, '0');
+
+            const formattedTime = `Local time: ${day}, ${hours}:${minutes}`;
+            const localTimeEl = document.querySelector('.time');
+            if (localTimeEl) {
+                localTimeEl.textContent = formattedTime;
+            }
+        }
+        // calling function 
+        updateCityLocalTime(data.timezone);
 
     }
 }
@@ -95,7 +132,6 @@ function updateWeatherUI(data) {
 // ---Event Listeners---
 
 // if  user clicks the button it will trigger and pass the city name to the getWeatherData function
-
 // Mobile
 searchBtnMobile?.addEventListener('click', () => {
     const cityName = cityInputMobile.value.trim();
@@ -112,7 +148,6 @@ searchBtnTab?.addEventListener('click', () => {
 
 
 // if  user presses Enter in the input field it will trigger and pass the city name to the getWeatherData function
-
 // Mobile
 cityInputMobile?.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
@@ -131,16 +166,27 @@ cityInputTab?.addEventListener('keypress', (e) => {
     }
 });
 
-// // To prevent a broken UI if image fails to load
-// weatherIcon.onerror = () => {
-//     weatherIcon.src = './asset/icons/default.png';
-// };
 
-//  const dummyData = {
-//         weather: [{ icon: '01d', description: 'clear sky' }],
-//         main: { temp: 25, humidity: 40, pressure: 1012 },
-//         wind: { speed: 3 },
-//         name: 'Mock City'
-//     };
+// time function
+function updateLocalTime() {
+    const now = new Date();
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const day = days[now.getDay()];
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
 
-//     updateWeatherUI(dummyData);
+    const formattedTime = `Local time: ${day}, ${hours}:${minutes}`;
+    const localTimeEl = document.querySelector('.local-time');
+    if (localTimeEl) {
+        localTimeEl.textContent = formattedTime;
+    }
+}
+
+// Run once at load , calling it 
+updateLocalTime();
+
+// Then sync to start of next full minute
+setTimeout(() => {
+    updateLocalTime();
+    setInterval(updateLocalTime, 60000);
+}, (60 - new Date().getSeconds()) * 1000);
