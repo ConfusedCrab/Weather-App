@@ -16,15 +16,16 @@
 ```bash
 ## 📁 Project Structure
 weather-now/
-│   │── asset/
-│   │   └── icons/
-│   │   └── images/
-│   └── main/              # HTML, CSS, JS
+│──── asset/
+│      └── icons/
+│      └── images/
+│──── main/              # HTML, CSS, JS
 │       ├── index.html
 │       ├── script.js
 │       ├── style.css
 │       ├── tabStyle.css
 │       └── MobileStyle.css
+│       └── versel.json
 └── README.md
 
 ```
