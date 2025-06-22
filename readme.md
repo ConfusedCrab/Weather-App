@@ -19,13 +19,13 @@ weather-now/
 │──── asset/
 │      └── icons/
 │      └── images/
-│──── main/              # HTML, CSS, JS
-│       ├── index.html
-│       ├── script.js
-│       ├── style.css
-│       ├── tabStyle.css
-│       └── MobileStyle.css
-│       └── versel.json
+│
+│── index.html
+│── script.js
+│── style.css
+│── tabStyle.css
+│── MobileStyle.css
+│── versel.json
 └── README.md
 
 ```
@@ -36,7 +36,7 @@ weather-now/
 
 - **Frontend**: HTML, CSS, JavaScript
 - **API**: [OpenWeatherMap](https://openweathermap.org/api)
-- **Deployment**: [Vercel](https://vercel.com/)
+- **Deployment**: [Netlify](https://app.netlify.com/)
 
 ---
 
