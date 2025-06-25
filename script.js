@@ -138,7 +138,7 @@ function updateWeatherUI(data) {
             const hours = cityTime.getHours().toString().padStart(2, '0');
             const minutes = cityTime.getMinutes().toString().padStart(2, '0');
 
-            const formattedTime = `Local time: ${day}, ${hours}:${minutes}`;
+            const formattedTime = `Location time: ${day}, ${hours}:${minutes}`;
             const localTimeEl = document.querySelector('.time');
             if (localTimeEl) {
                 localTimeEl.textContent = formattedTime;
